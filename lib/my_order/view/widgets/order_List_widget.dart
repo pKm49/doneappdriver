@@ -77,30 +77,30 @@ class OrderListTile extends StatelessWidget {
                                             const TextStyle(color: kGreyColor),
                                       ),
                                       kHeight(10),
-                                      InkWell(
-                                        onTap: () {
-                                          orderController.orderId =
-                                              orderDetails.id.obs;
-                                          log(
-                                              orderController.orderId
-                                                  .toString(),
-                                              name: "Order Id");
-                                          Get.to(const TrackDetailsScreen());
-                                        },
-                                        child: Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 30, vertical: 5),
-                                          decoration: BoxDecoration(
-                                              color: kPrimaryColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(5)),
-                                          child: const Text(
-                                            "Track",
-                                            style:
-                                                TextStyle(color: kWhiteColor),
-                                          ),
-                                        ),
-                                      )
+                                      // InkWell(
+                                      //   onTap: () {
+                                      //     orderController.orderId =
+                                      //         orderDetails.id.obs;
+                                      //     log(
+                                      //         orderController.orderId
+                                      //             .toString(),
+                                      //         name: "Order Id");
+                                      //     Get.to(const TrackDetailsScreen());
+                                      //   },
+                                      //   child: Container(
+                                      //     padding: const EdgeInsets.symmetric(
+                                      //         horizontal: 30, vertical: 5),
+                                      //     decoration: BoxDecoration(
+                                      //         color: kPrimaryColor,
+                                      //         borderRadius:
+                                      //             BorderRadius.circular(5)),
+                                      //     child: const Text(
+                                      //       "Track",
+                                      //       style:
+                                      //           TextStyle(color: kWhiteColor),
+                                      //     ),
+                                      //   ),
+                                      // )
                                     ],
                                   ),
                                 )

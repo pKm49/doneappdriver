@@ -63,19 +63,19 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton(
-                          onPressed: () {
-                            Get.to(const ForgotPassScreen());
-                          },
-                          child: const Text("Forget Password?",
-                              style: TextStyle(
-                                  color: kBlackColor,
-                                  fontWeight: FontWeight.w600))),
-                    ],
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.end,
+                  //   children: [
+                  //     TextButton(
+                  //         onPressed: () {
+                  //           Get.to(const ForgotPassScreen());
+                  //         },
+                  //         child: const Text("Forget Password?",
+                  //             style: TextStyle(
+                  //                 color: kBlackColor,
+                  //                 fontWeight: FontWeight.w600))),
+                  //   ],
+                  // ),
                 ],
               ),
             ),
@@ -94,17 +94,7 @@ class LoginScreen extends StatelessWidget {
                 },
               ),
             ),
-            Column(
-              children: [
-                Divider(
-                  color: Colors.grey[200],
-                ),
-                kHeight(30),
-                SocialMediaLogin(
-                  size: size,
-                )
-              ],
-            )
+
           ],
         ),
       ),

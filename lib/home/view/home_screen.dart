@@ -27,142 +27,165 @@ class HomeScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final orderController = Get.find<OrderController>();
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          CurvedClipPath(size: size, color: kPrimaryColor.withOpacity(0.1)),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Obx(
-              () => homeController.driverProfile.isEmpty
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            CircleAvatar(
-                              radius: 30,
-                              backgroundImage: NetworkImage(
-                                  homeController.driverProfile[0].image),
-                            ),
-                            kWidth(10),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  homeController.driverProfile[0].name,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(homeController.driverProfile[0].code)
-                              ],
-                            )
-                          ],
-                        ),
-                        kHeight(20),
-                        const Text(
-                          "Track orders",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w500),
-                        ),
-                        kHeight(20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            TrackOrderContainer(
-                              count: homeController.driverProfile[0].totalOrders
-                                  .toString(),
-                              content: "Total orders",
-                            ),
-                            TrackOrderContainer(
-                              count: homeController
-                                  .driverProfile[0].deliveredOrders
-                                  .toString(),
-                              content: "Delivered",
-                            ),
-                            TrackOrderContainer(
-                              count: homeController
-                                  .driverProfile[0].pendingOrders
-                                  .toString(),
-                              content: "Pending Order",
-                            ),
-                          ],
-                        ),
-                        kHeight(20),
-                        const Text(
-                          "Filter Task",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w500),
-                        ),
-                        kHeight(20),
-                        Container(
-                          padding: const EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                              color: kWhiteColor,
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: Colors.grey.shade300),
-                              boxShadow: [
-                                BoxShadow(
-                                    offset: const Offset(2, 2),
-                                    blurRadius: 2,
-                                    color: Colors.grey.shade300),
-                              ]),
-                          child: Column(
-                            children: [
-                              const Text(
-                                "Dispatch Date",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                ),
-                              ),
-                              kHeight(30),
-                              SelectDateCustomButton(
-                                  homeController: homeController),
-                              kHeight(20),
-                              selectShiftDropDown(homeController),
-                              kHeight(40),
-                              Obx(
-                                () => ElevatedButton(
-                                  onPressed: () async {
-                                    if (homeController.selectedDate == null ||
-                                        homeController.shiftId == null) {
-                                      Get.snackbar(
-                                          "Please Select filter option",
-                                          "Make sure that you have selected Date and Shift");
-                                    } else {
-                                      await orderController
-                                          .fetchFilteredOrderDetails();
-                                    }
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(25)),
-                                      backgroundColor: kBlackColor,
-                                      maximumSize:
-                                          const Size(double.infinity, 45)),
-                                  child: orderController.isLoading.value
-                                      ? CircularProgressIndicator(
-                                          color: kWhiteColor,
-                                        )
-                                      : Text(
-                                          "Continue",
-                                          style: TextStyle(color: kWhiteColor),
-                                        ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+      body: Container(
+        child: Stack(
+          children: [
+            Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CurvedClipPath(size: size, color: kPrimaryColor.withOpacity(0.1)),
+                  Expanded(
+                    child: Container(),
+                  ),
+                  CurvedClipPath2(size: size, color: kPrimaryColor.withOpacity(0.1))
+                ],
+              ),
             ),
-          ),
-          CurvedClipPath2(size: size, color: kPrimaryColor.withOpacity(0.1))
-        ],
+            Container(
+              child:Obx(
+                    () => homeController.driverProfile.isEmpty
+                    ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+                    : ListView(
+                  children: [
+                    kHeight(20),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 30,
+                            backgroundImage: NetworkImage(
+                                homeController.driverProfile[0].image),
+                          ),
+                          kWidth(10),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                homeController.driverProfile[0].name,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(homeController.driverProfile[0].code)
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                    kHeight(20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: const Text(
+                        "Track orders",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                    kHeight(20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          TrackOrderContainer(
+                            count: homeController.driverProfile[0].totalOrders
+                                .toString(),
+                            content: "Total orders",
+                          ),
+                          TrackOrderContainer(
+                            count: homeController
+                                .driverProfile[0].deliveredOrders
+                                .toString(),
+                            content: "Delivered",
+                          ),
+                          TrackOrderContainer(
+                            count: homeController
+                                .driverProfile[0].pendingOrders
+                                .toString(),
+                            content: "Pending Order",
+                          ),
+                        ],
+                      ),
+                    ),
+                    kHeight(20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: const Text(
+                        "Filter Task",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                    kHeight(20),
+                    Container(
+                      padding: const EdgeInsets.all(20),
+                      margin: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                          color: kWhiteColor,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: Colors.grey.shade300),
+                          boxShadow: [
+                            BoxShadow(
+                                offset: const Offset(2, 2),
+                                blurRadius: 2,
+                                color: Colors.grey.shade300),
+                          ]),
+                      child: Column(
+                        children: [
+                          const Text(
+                            "Dispatch Date",
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+                          kHeight(30),
+                          SelectDateCustomButton(
+                              homeController: homeController),
+                          kHeight(20),
+                          selectShiftDropDown(homeController),
+                          kHeight(40),
+                          Obx(
+                                () => ElevatedButton(
+                              onPressed: () async {
+                                if (homeController.selectedDate == null ||
+                                    homeController.shiftId == null) {
+                                  Get.snackbar(
+                                      "Please Select filter option",
+                                      "Make sure that you have selected Date and Shift");
+                                } else {
+                                  await orderController
+                                      .fetchFilteredOrderDetails();
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                      BorderRadius.circular(25)),
+                                  backgroundColor: kBlackColor,
+                                  maximumSize:
+                                  const Size(double.infinity, 45)),
+                              child: orderController.isLoading.value
+                                  ? CircularProgressIndicator(
+                                color: kWhiteColor,
+                              )
+                                  : Text(
+                                "Continue",
+                                style: TextStyle(color: kWhiteColor),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            )
+          ],
+        ),
       ),
     );
   }

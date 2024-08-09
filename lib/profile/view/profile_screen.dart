@@ -1,3 +1,4 @@
+import 'package:doneappdriver/auth/view/forget_password.dart/create_new_pass_screen.dart';
 import 'package:doneappdriver/auth/view/login_screen.dart';
 import 'package:doneappdriver/constraints/const_colors.dart';
 import 'package:doneappdriver/constraints/constraints.dart';
@@ -75,8 +76,11 @@ class ProfileScreen extends StatelessWidget {
                               ),
                         kHeight(10),
                         ListTile(
+                          onTap: (){
+                            Get.to(CreateNewPassScreen());
+                          },
                           leading: IconButton(
-                              onPressed: () {},
+                              onPressed: () { },
                               icon: const Icon(
                                 Icons.lock_open_rounded,
                                 color: kPrimaryColor,
@@ -95,6 +99,7 @@ class ProfileScreen extends StatelessWidget {
                       onTap: () async {
                         SharedPreferences prefs =
                             await SharedPreferences.getInstance();
+                        prefs.remove("mobile");
                         prefs.remove("hasSeenWelcomeScreen");
                         Get.offAll(const LoginScreen());
                       },
